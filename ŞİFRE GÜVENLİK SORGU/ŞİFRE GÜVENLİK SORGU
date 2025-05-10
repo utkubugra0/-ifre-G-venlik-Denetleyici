@@ -1,0 +1,49 @@
+package test;
+
+import java.util.Scanner;
+
+public class test {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Lütfen bir şifre girin: ");
+        String sifre = scanner.nextLine();
+
+        int skor = sifrePuani(sifre);
+        System.out.println("\nŞifre Puanı: " + skor + "/100");
+
+        if (skor < 40) System.out.println("Şifre Gücü: ZAYIF");
+        else if (skor < 70) System.out.println("Şifre Gücü: ORTA");
+        else System.out.println("Şifre Gücü: GÜÇLÜ");
+
+        eksikleriGoster(sifre);
+    }
+
+    public static int sifrePuani(String sifre) {
+        int puan = 0;
+
+        if (sifre.length() >= 8) puan += 20; 
+
+        if (sifre.matches(".*[a-z].*")) puan += 20; 
+        if (sifre.matches(".*[A-Z].*")) puan += 20; 
+        if (sifre.matches(".*[0-9].*")) puan += 20; 
+        if (sifre.matches(".*[!@#$%^&*()_+=\\-{}\\[\\]:;\"'<>,.?/\\\\|].*")) puan += 20; 
+
+        return puan;
+    }
+
+    
+    public static void eksikleriGoster(String sifre) {
+        System.out.println("\nEksikler:");
+        if (sifre.length() < 8) System.out.println("- Şifre en az 8 karakter olmalı.");
+        if (!sifre.matches(".*[a-z].*")) System.out.println("- Küçük harf içermeli.");
+        if (!sifre.matches(".*[A-Z].*")) System.out.println("- Büyük harf içermeli.");
+        if (!sifre.matches(".*[0-9].*")) System.out.println("- Rakam içermeli.");
+        if (!sifre.matches(".*[!@#$%^&*()_+=\\-{}\\[\\]:;\"'<>,.?/\\\\|].*")) System.out.println("- Özel karakter içermeli.");
+
+        if (sifre.length() >= 8 && sifre.matches(".*[a-z].*") && sifre.matches(".*[A-Z].*") && sifre.matches(".*[0-9].*") && sifre.matches(".*[!@#$%^&*()_+=\\-{}\\[\\]:;\"'<>,.?/\\\\|].*")) {
+            System.out.println("- Şifre tüm kriterleri karşılıyor. ✅");
+        }
+    }
+}
+
